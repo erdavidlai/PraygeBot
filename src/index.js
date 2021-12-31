@@ -81,6 +81,16 @@ client.on('message', (channel, userstate, message, self) => {
             }
         });
     }
+    else if (commands === 'DP在嗎?' || commands === '底屁在嗎?') {
+        const vips = data.chatters.vips;
+        const mods = data.chatters.moderators;
+        const viewers = data.chatters.viewers;
+
+        const chatters = vips.concat(mods).concat(viewers);
+
+        if (chatters.includes('disappear_0')) client.say(channel, `底屁在這裡, 快來抓他!!`);
+        else client.say(channel, '很抱歉, 底屁目前不在');
+    }
 });
 
 client.on('raided', (channel, username, viewers) => {
