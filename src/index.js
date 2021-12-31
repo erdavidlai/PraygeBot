@@ -41,6 +41,7 @@ client.on('message', (channel, userstate, message, self) => {
                     if (command === '守靈') {
                         client.say(channel, `PepegaPhone P薩還不快點起床開台!! @${userstate.username} 正在跟${chatters.length}個人正在等你呢!!`);
                     }
+                    break;
                 }
                 case 'mei_0w0': {
                     if (command === '躲貓貓') {
@@ -54,6 +55,7 @@ client.on('message', (channel, userstate, message, self) => {
 
                         client.say(channel, `${nowViewers} 抓到你們了!!`);
                     }
+                    break;
                 }
                 case 'yiyala0108': {
                     if (command === '躲貓貓') {
@@ -67,6 +69,7 @@ client.on('message', (channel, userstate, message, self) => {
 
                         client.say(channel, `${nowViewers} 抓到你們了!!`);
                     }
+                    break;
                 }
                 case 'shirakabarinyun': {
                     if (command === '躲貓貓') {
@@ -80,6 +83,7 @@ client.on('message', (channel, userstate, message, self) => {
 
                         client.say(channel, `${nowViewers} 抓到你們了!!`);
                     }
+                    break;
                 }
                 case 'yoruko_ouo': {
                     if (command === '躲貓貓') {
@@ -93,11 +97,13 @@ client.on('message', (channel, userstate, message, self) => {
 
                         client.say(channel, `${nowViewers} 抓到你們了!!`);
                     }
+                    break;
                 }
                 case 'justkatana_': {
                     if (command === '招魂') {
                         client.say(channel, `有 ${chatters.length}人正在等待K粉降臨，還敢不開台阿，甲K！！！`);
                     }
+                    break;
                 }
                 case 'togameazumi5566': {
                     if (command === '掠龜') {
@@ -114,11 +120,13 @@ client.on('message', (channel, userstate, message, self) => {
 
                         client.say(channel, `${nowViewers} 抓到你們了!!`);
                     }
+                    break;
                 }
                 case 'morze_mh': {
                     if (command === '守靈') {
                         client.say(channel, `${userstate.username} 正和 ${chatters.length} 個人一起上香! 家屬答禮`);
                     }
+                    break;
                 }
             }
         });
