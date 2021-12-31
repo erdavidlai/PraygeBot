@@ -6,7 +6,7 @@ const option = {
 		username: 'ffowotw',
 		password: 'oauth:hza8z428d81p2n3nyb41akbw4ym1ol'
 	},
-	channels: [ 'ffowotw', 'ilzemkion_tw', 'mei_0w0', 'yiyala0108' ]
+	channels: [ 'ffowotw', 'ilzemkion_tw', 'mei_0w0', 'yiyala0108', 'justkatana_', 'shirakabarinyun' ]
 };
 
 const client = new tmi.client(option);
@@ -20,9 +20,9 @@ client.on('message', (channel, userstate, message, self) => {
     const args = message.slice(1).split(' ');
     const command = args.shift().toLowerCase();
 
-    if (command === '守靈') {
+    const channelId = channel.replace('#', '');
 
-        channelId = channel.replace('#', '');
+    if (command === '守靈') {
 
         fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
         .then(res => res.json())
@@ -36,22 +36,59 @@ client.on('message', (channel, userstate, message, self) => {
                 case 'ilzemkion_tw':
                     client.say(channel, `給哀給我開台!!`);
                     break;
-
-                case 'mei_0w0':
-                    client.say(channel, `@${userstate.username} 正在跟${data.chatter_count - 1}個人守靈中..`);
-                    break;
             }
         });
     }
     else if (command === '躲貓貓') {
-        channelId = channel.replace('#', '');
 
         fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
         .then(res => res.json())
         .then(data => {
 
-            switch(channelId)
+            if (channelId === 'mei_0w0' || channelId === 'yiyala0108' || channelId === 'shirakabarinyun') {
+                const vips = data.chatters.vips;
+                const mods = data.chatters.moderators;
+                const viewers = data.chatters.viewers;
+
+                const chatters = vips.concat(mods).concat(viewers);
+
+                let nowViewers = '';
+
+                for (var i = 0; i < chatters.length; i++) {
+
+                    if (chatters[i].toLowerCase() === 'nightbot') continue;
+                    if (chatters[i].toLowerCase() === 'streamlabs') continue;
+                        
+                    if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
+                    else nowViewers += chatters[i] + '';
+                }
+
+                client.say(channel, `${nowViewers} 抓到你們了!!`);
+            }
+
+            /*switch(channelId)
             {
+                case 'mei_0w0':
+                    const vips = data.chatters.vips;
+                    const mods = data.chatters.moderators;
+                    const viewers = data.chatters.viewers;
+
+                    const chatters = vips.concat(mods).concat(viewers);
+
+                    let nowViewers = '';
+
+                    for (var i = 0; i < chatters.length; i++) {
+
+                        if (chatters[i].toLowerCase() === 'nightbot') continue;
+                        if (chatters[i].toLowerCase() === 'streamlabs') continue;
+                        
+                        if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
+                        else nowViewers += chatters[i] + '';
+                    }
+
+                    client.say(channel, `${nowViewers} 抓到你們了!!`);
+                    break;
+		
                 case 'yiyala0108':
                     
                     const vips = data.chatters.vips;
@@ -73,6 +110,19 @@ client.on('message', (channel, userstate, message, self) => {
 
                     client.say(channel, `${nowViewers} 抓到你們了!!`);
                     break;
+            }*/
+        });
+    }
+    else if (command === '招魂') {
+
+        fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
+        .then(res => res.json())
+        .then(data => {
+            switch(channelId)
+            {
+                case 'justkatana_':
+                    client.say(channel, `有 ${data.chatter_count - 1}人正在等待K粉降臨，還敢不開台阿，甲K！！！`);
+                    break;
             }
         });
     }
@@ -80,6 +130,6 @@ client.on('message', (channel, userstate, message, self) => {
 
 client.on('raided', (channel, username, viewers) => {
     if (channel.replace('#', '') === 'mei_0w0') {
-        client.say(channel, `快來追隨${username}, https://.twitch.tv/${username}`);
+        client.say(channel, `快來追隨${username}, https://twitch.tv/${username}`);
     }
 });
