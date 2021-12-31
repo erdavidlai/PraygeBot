@@ -45,7 +45,7 @@ client.on('message', (channel, userstate, message, self) => {
         .then(res => res.json())
         .then(data => {
 
-            if (channelId === 'mei_0w0' || channelId === 'yiyala0108' || channelId === 'shirakabarinyun' || channelId === 'yoruko_ouo') {
+            if (channelId === 'mei_0w0' || channelId === 'yiyala0108' || channelId === 'shirakabarinyun' || channelId === 'yoruko_ouo' || channelId === 'togameazumi5566') {
                 const vips = data.chatters.vips;
                 const mods = data.chatters.moderators;
                 const viewers = data.chatters.viewers;
@@ -78,7 +78,7 @@ client.on('message', (channel, userstate, message, self) => {
             }
         });
     }
-    else if (commands === '掠龜') {
+    else if (command === '掠龜') {
 
         fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
         .then(res => res.json())
