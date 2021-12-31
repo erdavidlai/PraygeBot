@@ -6,7 +6,7 @@ const option = {
 		username: 'ffowotw',
 		password: 'oauth:hza8z428d81p2n3nyb41akbw4ym1ol'
 	},
-	channels: [ 'ffowotw', 'ilzemkion_tw', 'mei_0w0', 'yiyala0108', 'justkatana_', 'shirakabarinyun' ]
+	channels: [ 'ffowotw', 'ilzemkion_tw', 'mei_0w0', 'yiyala0108', 'justkatana_', 'shirakabarinyun', 'yoruko_ouo' ]
 };
 
 const client = new tmi.client(option);
@@ -45,7 +45,7 @@ client.on('message', (channel, userstate, message, self) => {
         .then(res => res.json())
         .then(data => {
 
-            if (channelId === 'mei_0w0' || channelId === 'yiyala0108' || channelId === 'shirakabarinyun') {
+            if (channelId === 'mei_0w0' || channelId === 'yiyala0108' || channelId === 'shirakabarinyun' || channelId === 'yoruko_ouo') {
                 const vips = data.chatters.vips;
                 const mods = data.chatters.moderators;
                 const viewers = data.chatters.viewers;
@@ -58,6 +58,7 @@ client.on('message', (channel, userstate, message, self) => {
 
                     if (chatters[i].toLowerCase() === 'nightbot') continue;
                     if (chatters[i].toLowerCase() === 'streamlabs') continue;
+                    if (chatters[i].toLowerCase() === 'streamelements') continue;
                         
                     if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
                     else nowViewers += chatters[i] + '';
@@ -65,52 +66,6 @@ client.on('message', (channel, userstate, message, self) => {
 
                 client.say(channel, `${nowViewers} 抓到你們了!!`);
             }
-
-            /*switch(channelId)
-            {
-                case 'mei_0w0':
-                    const vips = data.chatters.vips;
-                    const mods = data.chatters.moderators;
-                    const viewers = data.chatters.viewers;
-
-                    const chatters = vips.concat(mods).concat(viewers);
-
-                    let nowViewers = '';
-
-                    for (var i = 0; i < chatters.length; i++) {
-
-                        if (chatters[i].toLowerCase() === 'nightbot') continue;
-                        if (chatters[i].toLowerCase() === 'streamlabs') continue;
-                        
-                        if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
-                        else nowViewers += chatters[i] + '';
-                    }
-
-                    client.say(channel, `${nowViewers} 抓到你們了!!`);
-                    break;
-		
-                case 'yiyala0108':
-                    
-                    const vips = data.chatters.vips;
-                    const mods = data.chatters.moderators;
-                    const viewers = data.chatters.viewers;
-
-                    const chatters = vips.concat(mods).concat(viewers);
-
-                    let nowViewers = '';
-
-                    for (var i = 0; i < chatters.length; i++) {
-
-                        if (chatters[i].toLowerCase() === 'nightbot') continue;
-                        if (chatters[i].toLowerCase() === 'streamlabs') continue;
-                        
-                        if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
-                        else nowViewers += chatters[i] + '';
-                    }
-
-                    client.say(channel, `${nowViewers} 抓到你們了!!`);
-                    break;
-            }*/
         });
     }
     else if (command === '招魂') {
