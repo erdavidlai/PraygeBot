@@ -63,16 +63,12 @@ client.on('message', (channel, userstate, message, self) => {
                     let nowViewers = '';
 
                     for (var i = 0; i < chatters.length; i++) {
-                        
-                        console.log(i);
 
                         if (chatters[i].toLowerCase() === 'nightbot') continue;
                         if (chatters[i].toLowerCase() === 'streamlabs') continue;
                         
                         if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
                         else nowViewers += chatters[i] + '';
-
-                        console.log(chatters[i]);
                     }
 
                     client.say(channel, `${nowViewers} 抓到你們了!!`);
