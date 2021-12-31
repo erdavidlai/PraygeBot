@@ -6,7 +6,7 @@ const option = {
 		username: 'ffowotw',
 		password: 'oauth:hza8z428d81p2n3nyb41akbw4ym1ol'
 	},
-	channels: [ 'ffowotw', 'ilzemkion_tw', 'mei_0w0', 'yiyala0108', 'justkatana_', 'shirakabarinyun', 'yoruko_ouo' ]
+	channels: [ 'ffowotw', 'ilzemkion_tw', 'mei_0w0', 'yiyala0108', 'justkatana_', 'shirakabarinyun', 'yoruko_ouo', 'togameazumi5566' ]
 };
 
 const client = new tmi.client(option);
@@ -73,23 +73,20 @@ client.on('message', (channel, userstate, message, self) => {
         fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
         .then(res => res.json())
         .then(data => {
-            switch(channelId)
-            {
-                case 'justkatana_':
-                    client.say(channel, `有 ${data.chatter_count - 1}人正在等待K粉降臨，還敢不開台阿，甲K！！！`);
-                    break;
+            if (channelId === 'justkatana_') {
+                client.say(channel, `有 ${data.chatter_count - 1}人正在等待K粉降臨，還敢不開台阿，甲K！！！`);
             }
         });
     }
-    else if (commands === 'DP在嗎?' || commands === '底屁在嗎?') {
-        const vips = data.chatters.vips;
-        const mods = data.chatters.moderators;
-        const viewers = data.chatters.viewers;
+    else if (commands === '掠龜') {
 
-        const chatters = vips.concat(mods).concat(viewers);
-
-        if (chatters.includes('disappear_0')) client.say(channel, `底屁在這裡, 快來抓他!!`);
-        else client.say(channel, '很抱歉, 底屁目前不在');
+        fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
+        .then(res => res.json())
+        .then(data => {
+            if (channelId === 'togameazumi5566') {
+                client.say(channel, `${data.chatter_count - 1}個人正在海邊掠龜中`);
+            }
+        });
     }
 });
 
