@@ -1,0 +1,17 @@
+{
+  "name": "ffobot",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ffowotw",
+  "license": "ISC",
+  "dependencies": {
+    "cross-fetch": "^3.1.4",
+    "node-fetch": "^3.1.0",
+    "tmi.js": "^1.8.5"
+  }
+}
