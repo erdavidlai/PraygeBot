@@ -15,12 +15,14 @@ client.connect();
 
 client.on('message', (channel, userstate, message, self) => {
     
-	if(self || !message.startsWith('!')) return;
+    if(self || !message.startsWith('!')) return;
 
     const args = message.slice(1).split(' ');
     const command = args.shift().toLowerCase();
 
     const channelId = channel.replace('#', '');
+
+    console.log(`${userstate.username}在${channelId}的頻道輸入了${message}`);
 
     fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
         .then(res => res.json())
