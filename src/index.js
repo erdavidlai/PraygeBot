@@ -13,6 +13,14 @@ const client = new tmi.client(option);
 
 client.connect();
 
+client.on('connected', (address, port) => {
+    console.log(`Server connected`);
+});
+
+client.on('disconnected', (reason) => {
+    console.log(`Server disconnected, reason: ${reason}`);
+});
+
 client.on('message', (channel, userstate, message, self) => {
     
 	if(self || !message.startsWith('!')) return;
