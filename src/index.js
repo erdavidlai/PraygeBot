@@ -35,6 +35,7 @@ client.on('message', (channel, userstate, message, self) =>
 
     const channelId = channel.replace('#', '');
     const username = userstate.username;
+    const displayName = userstate.displayName;
 
     console.log(`${username}輸入了!${command}`);
 
@@ -79,8 +80,12 @@ client.on('message', (channel, userstate, message, self) =>
 
             if (command === '守靈')
             {
-                client.say(channel, `PepegaPhone 還不快點起床開台!! @${username} 正在跟${chatters.length}個人正在等你呢!!`);
+                client.say(channel, `PepegaPhone 還不快點起床開台!! @${displayName} 正在跟${chatters.length}個人正在等你呢!!`);
             }
         });
     }
+});
+
+client.on('raided', (channel, username, viewers) => {
+    client.say(channel, `感謝 ${username} 帶著 ${viewers.length} 空降 PogChamp !! 這是 ${username} 的頻道 twitch.tv/${username} 還不過去追隨 ffowotPepega !!`);
 });
