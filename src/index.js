@@ -1,40 +1,71 @@
 const tmi = require('tmi.js');
 const fetch = require('cross-fetch');
 
+let roomID = '';
+
 const option = {
 	identity: {
 		username: 'ffowotw',
 		password: 'oauth:hza8z428d81p2n3nyb41akbw4ym1ol'
 	},
-	channels: [ 'ffowotw', 'mei_0w0', 'yiyala0108', 'justkatana_', 'shirakabarinyun', 'yoruko_ouo', 'togameazumi5566', 'morze_mh' ]
+	channels: [ 'ffowotw' ]
 };
 
 const client = new tmi.client(option);
 
 client.connect();
 
-client.on('connected', (address, port) => {
+client.on('connected', (address, port) =>
+{
     console.log(`Server connected`);
 });
 
-client.on('disconnected', (reason) => {
+client.on('disconnected', (reason) =>
+{
     console.log(`Server disconnected, reason: ${reason}`);
 });
 
-client.on('message', (channel, userstate, message, self) => {
+client.on('message', (channel, userstate, message, self) =>
+{
     
 	if(self || !message.startsWith('!')) return;
 
     const args = message.slice(1).split(' ');
-    const command = args.shift().toLowerCase();
+    command = args[0].toLowerCase() + '';
 
     const channelId = channel.replace('#', '');
+    const username = userstate.username;
 
-    console.log(`${userstate.username}在${channelId}的頻道輸入了${message}`);
+    console.log(`${username}輸入了!${command}`);
 
-    fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
+    if (command === 'discord' || command === 'dc')
+    {
+        client.say(channel, `https://discord.gg/7fYbbDVycg`);
+        return;
+    }
+    else if (command === 'setid')
+    {
+        if (username === 'ffowotw' || mods.includes(username)) {
+            roomID = args[1] + '';
+        }
+        return;
+    }
+    else if (command === 'id')
+    {
+        if (roomID === '') {
+            client.say(channel, '自己猜 ffowotPepeLaugh');
+        }
+        else {
+            client.say(channel, roomID);
+        }
+        return;
+    }
+    else
+    {
+        fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
         .then(res => res.json())
-        .then(data => {
+        .then(data =>
+        {
             const vips = data.chatters.vips;
             const mods = data.chatters.moderators;
             const viewers = data.chatters.viewers;
@@ -44,108 +75,12 @@ client.on('message', (channel, userstate, message, self) => {
             if (chatters.includes('nightbot')) chatters.splice(chatters.indexOf('nightbot'), 1);
             if (chatters.includes('streamlabs')) chatters.splice(chatters.indexOf('streamlabs'), 1);
             if (chatters.includes('streamelements')) chatters.splice(chatters.indexOf('streamelements'), 1);
-            if (chatters.includes(userstate.username)) chatters.splice(chatters.indexOf(userstate.username), 1);
+            if (chatters.includes(username)) chatters.splice(chatters.indexOf(username), 1);
 
-            switch(channelId) {
-                case 'ffowotw': {
-                    if (command === '守靈') {
-                        client.say(channel, `PepegaPhone P薩還不快點起床開台!! @${userstate.username} 正在跟${chatters.length}個人正在等你呢!!`);
-                    }
-                    break;
-                }
-                case 'mei_0w0': {
-                    if (command === '躲貓貓') {
-                        let nowViewers = '';
-
-                        for (var i = 0; i < chatters.length; i++) {
-
-                            if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
-                            else nowViewers += chatters[i] + '';
-                        }
-
-                        client.say(channel, `${nowViewers} 抓到你們了!!`);
-                    }
-                    break;
-                }
-                case 'yiyala0108': {
-                    if (command === '躲貓貓') {
-                        let nowViewers = '';
-
-                        for (var i = 0; i < chatters.length; i++) {
-
-                            if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
-                            else nowViewers += chatters[i] + '';
-                        }
-
-                        client.say(channel, `${nowViewers} 抓到你們了!!`);
-                    }
-                    break;
-                }
-                case 'shirakabarinyun': {
-                    if (command === '躲貓貓') {
-                        let nowViewers = '';
-
-                        for (var i = 0; i < chatters.length; i++) {
-
-                            if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
-                            else nowViewers += chatters[i] + '';
-                        }
-
-                        client.say(channel, `${nowViewers} 抓到你們了!!`);
-                    }
-                    break;
-                }
-                case 'yoruko_ouo': {
-                    if (command === '躲貓貓') {
-                        let nowViewers = '';
-
-                        for (var i = 0; i < chatters.length; i++) {
-
-                            if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
-                            else nowViewers += chatters[i] + '';
-                        }
-
-                        client.say(channel, `${nowViewers} 抓到你們了!!`);
-                    }
-                    break;
-                }
-                case 'justkatana_': {
-                    if (command === '招魂') {
-                        client.say(channel, `有 ${chatters.length}人正在等待K粉降臨，還敢不開台阿，甲K！！！`);
-                    }
-                    break;
-                }
-                case 'togameazumi5566': {
-                    if (command === '掠龜') {
-                        client.say(channel, `${chatters.length}個人正在海邊掠龜中`);
-                    }
-                    else if (command === '躲貓貓') {
-                        let nowViewers = '';
-
-                        for (var i = 0; i < chatters.length; i++) {
-
-                            if (i != chatters.length - 1) nowViewers += chatters[i] + ', ';
-                            else nowViewers += chatters[i] + '';
-                        }
-
-                        client.say(channel, `${nowViewers} 抓到你們了!!`);
-                    }
-                    break;
-                }
-                case 'morze_mh': {
-                    if (command === '守靈') {
-                        client.say(channel, `PepegaPhone P薩還不快點起床開台!! @${userstate.username} 正和 ${chatters.length} 個人一起守靈 主bo給我開台!`);
-                    }
-                    break;
-                }
+            if (command === '守靈')
+            {
+                client.say(channel, `PepegaPhone 還不快點起床開台!! @${username} 正在跟${chatters.length}個人正在等你呢!!`);
             }
         });
-});
-
-client.on('raided', (channel, username, viewers) => {
-    const channelId = channel.replace('#', '');
-
-    if (channelId === 'mei_0w0') {
-        client.say(channel, `快來追隨${username}, https://twitch.tv/${username}`);
     }
 });
