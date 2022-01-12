@@ -50,6 +50,13 @@ client.on('message', (channel, userstate, message, self) =>
         }
         return;
     }
+    else if (command === 'clearid')
+    {
+        if (username === 'ffowotw' || mods.includes(username)) {
+            roomID = '';
+        }
+        return;
+    }
     else if (command === 'id')
     {
         if (roomID === '') {
