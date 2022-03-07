@@ -28,7 +28,7 @@ client.on('disconnected', (reason) =>
 client.on('message', (channel, userstate, message, self) =>
 {
     
-	if(self || !message.startsWith('!')) return;
+    if(self || !message.startsWith('!')) return;
 
     const args = message.slice(1).split(' ');
     command = args[0].toLowerCase() + '';
@@ -60,14 +60,14 @@ client.on('message', (channel, userstate, message, self) =>
     else if (command === 'id')
     {
         if (roomID === '') {
-            client.say(channel, '自己猜 ffowotPepeLaugh');
+            client.say(channel, '自己猜 LUL');
         }
         else {
             client.say(channel, roomID);
         }
         return;
     }
-    else
+    else if (command != null)
     {
         fetch(`http://tmi.twitch.tv/group/user/${channelId}/chatters`)
         .then(res => res.json())
