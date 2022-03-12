@@ -95,5 +95,5 @@ client.on('message', (channel, userstate, message, self) =>
 });
 
 client.on('raided', (channel, username, viewers) => {
-    client.say(channel, `!so ${username}`);
+    client.say(channel, `感謝 @${username} 帶著 ${viewers} 人從天而降`);
 });
